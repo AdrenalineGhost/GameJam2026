@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgry6cmfd508n"]
+[gd_scene load_steps=9 format=3 uid="uid://bgry6cmfd508n"]
 
 [ext_resource type="Texture2D" uid="uid://iud5lfp5pv3n" path="res://icon.svg" id="1_uhqqe"]
 [ext_resource type="Script" uid="uid://b3h7uej4g5uyq" path="res://BodyTest.gd" id="2_ia1lp"]
@@ -19,6 +19,8 @@ size = Vector2(121, 124)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ia1lp"]
 distance = -325.0
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_ia1lp"]
 
 [node name="TestScene" type="Node2D"]
 
@@ -88,3 +90,11 @@ position = Vector2(0.6319764, 325.0542)
 rotation = 1.5688521
 scale = Vector2(0.014581213, 9.197657)
 texture = ExtResource("1_uhqqe")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(2.9875498, 0.8392758)
+shape = SubResource("ConcavePolygonShape2D_ia1lp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D/CollisionShape2D"]
