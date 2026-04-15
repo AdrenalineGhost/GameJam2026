@@ -1,7 +1,6 @@
 extends PathFollow2D
 ## This node contains the pathing logic for an enemy, including speeds and special powerups.
 @export var speed = 100
-@export var health = 10
 # The enemie's speed
 
 # Called when the node enters the scene tree for the first time.

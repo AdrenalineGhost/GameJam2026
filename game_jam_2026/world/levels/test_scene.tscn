@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://qeikjdj32f1g" path="res://entities/enemies/easy_enemy.tscn" id="4_dlqjn"]
 [ext_resource type="Script" uid="uid://dddsodi6lfc23" path="res://world/builder_blocks/finish.gd" id="5_soq75"]
 [ext_resource type="Script" uid="uid://b3h7uej4g5uyq" path="res://player/BodyTest.gd" id="6_oopnc"]
+[ext_resource type="Script" uid="uid://b86rv11fldfou" path="res://world/levels/canvas.gd" id="6_t00nl"]
 
 [sub_resource type="Gradient" id="Gradient_ia1lp"]
 colors = PackedColorArray(0, 0.5568628, 0, 1, 0, 0.24313726, 0, 1)
@@ -30,6 +31,8 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -659, -475, 0, 0, 0, 0, -660, -1838, 0, 0, 0, 0, -1905, -1851, 0, 0, 0, 0, -1905, -1454, 0, 0, 0, 0, -1521, -1445, 0, 0, 0, 0, -1517, -572)
 }
 point_count = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_t486w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ia1lp"]
 size = Vector2(121, 124)
@@ -198,8 +201,8 @@ metadata/_edit_lock_ = true
 scale = Vector2(0.15066823, -0.15550296)
 texture = ExtResource("3_rrhtf")
 
-[node name="finish" type="Area2D" parent="world" unique_id=1818641814]
-position = Vector2(-306, 964)
+[node name="finish" type="Area2D" parent="world" unique_id=1818641814 groups=["spawner_utils"]]
+position = Vector2(-322, 651)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("5_soq75")
@@ -212,9 +215,19 @@ shape = SubResource("RectangleShape2D_2q0fw")
 [node name="Sprite2D" type="Sprite2D" parent="world/finish" unique_id=362803694]
 texture = ExtResource("3_rrhtf")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="world/finish" unique_id=1543874165]
+[node name="pathing" type="Path2D" parent="world" unique_id=1916981585 groups=["spawner_utils"]]
+position = Vector2(1209, 1527)
+curve = SubResource("Curve2D_ia1lp")
+metadata/_edit_lock_ = true
 
-[node name="progress" type="ProgressBar" parent="world/finish/CanvasLayer" unique_id=575189571]
+[node name="spawner_block" parent="world" unique_id=531980416 instance=ExtResource("2_t00nl")]
+position = Vector2(540, 550)
+easy_enemies = Array[PackedScene]([ExtResource("4_dlqjn")])
+
+[node name="canvas" type="CanvasLayer" parent="world" unique_id=1543874165 groups=["UI"]]
+script = ExtResource("6_t00nl")
+
+[node name="health" type="ProgressBar" parent="world/canvas" unique_id=575189571 groups=["UI"]]
 top_level = true
 anchors_preset = 1
 anchor_left = 1.0
@@ -228,16 +241,12 @@ size_flags_horizontal = 0
 step = 1.0
 value = 100.0
 rounded = true
-metadata/_edit_use_anchors_ = true
 
-[node name="spawner_block" parent="world" unique_id=531980416 instance=ExtResource("2_t00nl")]
-position = Vector2(540, 550)
-easy_enemies = Array[PackedScene]([ExtResource("4_dlqjn")])
-
-[node name="pathing" type="Path2D" parent="world" unique_id=1916981585]
-position = Vector2(1209, 1527)
-curve = SubResource("Curve2D_ia1lp")
-metadata/_edit_lock_ = true
+[node name="wave_counter" type="Label" parent="world/canvas" unique_id=903698761 groups=["UI", "spawner_utils"]]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "testtext"
+label_settings = SubResource("LabelSettings_t486w")
 
 [node name="player" type="CharacterBody2D" parent="." unique_id=15166205]
 position = Vector2(300, 405)
@@ -257,3 +266,5 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [connection signal="body_entered" from="world/finish" to="world/finish" method="_on_body_entered"]
+[connection signal="health_changed" from="world/finish" to="world/canvas" method="_on_health_change"]
+[connection signal="wave_change" from="world/spawner_block" to="world/canvas" method="_on_spawner_block_wave_change"]
