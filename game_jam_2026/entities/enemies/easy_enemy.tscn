@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://qeikjdj32f1g"]
+
+[ext_resource type="Texture2D" uid="uid://iud5lfp5pv3n" path="res://images/icon.svg" id="1_7k104"]
+[ext_resource type="Script" uid="uid://c6y7qhlheuhfr" path="res://entities/enemies/super_path.gd" id="1_ktvmw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_coq8p"]
+size = Vector2(127, 128)
+
+[node name="easy_enemy" type="PathFollow2D" unique_id=1601656415]
+rotation = -1.57153
+script = ExtResource("1_ktvmw")
+
+[node name="easy_enemy" type="CharacterBody2D" parent="." unique_id=185107762]
+rotation = 1.57153
+scale = Vector2(1.0000001, 1.0000001)
+collision_layer = 2
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="easy_enemy" unique_id=543344346]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_coq8p")
+
+[node name="Sprite2D" type="Sprite2D" parent="easy_enemy" unique_id=903870746]
+texture = ExtResource("1_7k104")

@@ -1,0 +1,259 @@
+[gd_scene format=3 uid="uid://bgry6cmfd508n"]
+
+[ext_resource type="Script" uid="uid://cpyox0xt5n3aq" path="res://world/builder_blocks/director.gd" id="1_t486w"]
+[ext_resource type="PackedScene" uid="uid://c4ihkfackmtbh" path="res://world/builder_blocks/spawner_block.tscn" id="2_t00nl"]
+[ext_resource type="Texture2D" uid="uid://iud5lfp5pv3n" path="res://images/icon.svg" id="3_rrhtf"]
+[ext_resource type="PackedScene" uid="uid://qeikjdj32f1g" path="res://entities/enemies/easy_enemy.tscn" id="4_dlqjn"]
+[ext_resource type="Script" uid="uid://dddsodi6lfc23" path="res://world/builder_blocks/finish.gd" id="5_soq75"]
+[ext_resource type="Script" uid="uid://b3h7uej4g5uyq" path="res://player/BodyTest.gd" id="6_oopnc"]
+
+[sub_resource type="Gradient" id="Gradient_ia1lp"]
+colors = PackedColorArray(0, 0.5568628, 0, 1, 0, 0.24313726, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sasra"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_coq8p"]
+noise = SubResource("FastNoiseLite_sasra")
+color_ramp = SubResource("Gradient_ia1lp")
+normalize = false
+seamless_blend_skirt = 0.969
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ia1lp"]
+distance = -325.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sasra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2q0fw"]
+
+[sub_resource type="Curve2D" id="Curve2D_ia1lp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -659, -475, 0, 0, 0, 0, -660, -1838, 0, 0, 0, 0, -1905, -1851, 0, 0, 0, 0, -1905, -1454, 0, 0, 0, 0, -1521, -1445, 0, 0, 0, 0, -1517, -572)
+}
+point_count = 6
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ia1lp"]
+size = Vector2(121, 124)
+
+[node name="dir" type="Node2D" unique_id=790665536]
+script = ExtResource("1_t486w")
+
+[node name="world" type="Node2D" parent="." unique_id=2137557713]
+
+[node name="background" type="Sprite2D" parent="world" unique_id=1237456042]
+position = Vector2(-56.249958, 41.25001)
+scale = Vector2(18.847656, 9.449219)
+texture = SubResource("NoiseTexture2D_coq8p")
+
+[node name="world_border" type="StaticBody2D" parent="world" unique_id=979699768]
+scale = Vector2(1.7408013, 1.5628132)
+collision_layer = 32
+metadata/_edit_lock_ = true
+
+[node name="Bottom" type="CollisionShape2D" parent="world/world_border" unique_id=1152989756]
+shape = SubResource("WorldBoundaryShape2D_ia1lp")
+
+[node name="wall" type="Sprite2D" parent="world/world_border/Bottom" unique_id=1692833167]
+position = Vector2(-4.744473e-13, 325.05484)
+rotation = -1.5707964
+scale = Vector2(0.014581213, 9.197658)
+texture = ExtResource("3_rrhtf")
+
+[node name="Left" type="CollisionShape2D" parent="world/world_border" unique_id=1968599945]
+rotation = 1.5707964
+scale = Vector2(1.1984249, 1.773144)
+shape = SubResource("WorldBoundaryShape2D_ia1lp")
+
+[node name="wall" type="Sprite2D" parent="world/world_border/Left" unique_id=1747447900]
+position = Vector2(2.1015296e-05, 324.94342)
+rotation = -1.5707964
+scale = Vector2(-0.0122965, 4.4300013)
+texture = ExtResource("3_rrhtf")
+
+[node name="Right" type="CollisionShape2D" parent="world/world_border" unique_id=1668793261]
+rotation = -1.5707964
+scale = Vector2(1.1984249, 1.773144)
+shape = SubResource("WorldBoundaryShape2D_ia1lp")
+
+[node name="wall" type="Sprite2D" parent="world/world_border/Right" unique_id=1451533902]
+position = Vector2(-2.0980835e-05, 325.2674)
+rotation = 1.5707964
+scale = Vector2(0.009055378, 4.4300013)
+texture = ExtResource("3_rrhtf")
+
+[node name="Top" type="CollisionShape2D" parent="world/world_border" unique_id=1391226055]
+rotation = -3.1396484
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("WorldBoundaryShape2D_ia1lp")
+
+[node name="wall" type="Sprite2D" parent="world/world_border/Top" unique_id=1840468652]
+position = Vector2(0.6319764, 325.0542)
+rotation = 1.5688521
+scale = Vector2(0.014581213, 9.197657)
+texture = ExtResource("3_rrhtf")
+
+[node name="path" type="Area2D" parent="world" unique_id=1000634554]
+collision_layer = 0
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world/path" unique_id=1050766142]
+position = Vector2(552, 266)
+scale = Vector2(-4.7578692, -24.617582)
+shape = SubResource("RectangleShape2D_sasra")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="world/path/CollisionShape2D" unique_id=310208740]
+scale = Vector2(0.15066823, -0.15550296)
+texture = ExtResource("3_rrhtf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="world/path/CollisionShape2D" unique_id=1348205773]
+position = Vector2(0, -15.314258)
+scale = Vector2(0.15066823, -0.15550296)
+texture = ExtResource("3_rrhtf")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="world/path" unique_id=554879285]
+position = Vector2(552, -119)
+scale = Vector2(-4.7578692, -24.617582)
+shape = SubResource("RectangleShape2D_sasra")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="world/path/CollisionShape2D2" unique_id=1789293442]
+scale = Vector2(0.15066823, -0.15550296)
+texture = ExtResource("3_rrhtf")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="world/path" unique_id=1663282501]
+position = Vector2(353.00003, -318.00003)
+rotation = -1.5707964
+scale = Vector2(-4.7578692, -24.617582)
+shape = SubResource("RectangleShape2D_sasra")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="world/path/CollisionShape2D3" unique_id=1711127113]
+scale = Vector2(0.15066823, -0.15550296)
+texture = ExtResource("3_rrhtf")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="world/path" unique_id=1288662639]
+position = Vector2(-132.99997, -318.00003)
+rotation = -1.5707964
+scale = Vector2(-4.7578692, -24.617582)
+shape = SubResource("RectangleShape2D_sasra")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="world/path/CollisionShape2D4" unique_id=648678649]
+scale = Vector2(0.15066823, -0.15550296)
+texture = ExtResource("3_rrhtf")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="world/path" unique_id=1364949372]
+position = Vector2(-507, -318.00003)
+rotation = -1.5707964
+scale = Vector2(-4.7578692, -24.617582)
+shape = SubResource("RectangleShape2D_sasra")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="world/path/CollisionShape2D5" unique_id=1573435990]
+scale = Vector2(0.15066823, -0.15550296)
+texture = ExtResource("3_rrhtf")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="world/path" unique_id=624377636]
+position = Vector2(-706, -119)
+rotation = -3.1415927
+scale = Vector2(-4.7578692, -24.617582)
+shape = SubResource("RectangleShape2D_sasra")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="world/path/CollisionShape2D6" unique_id=912762071]
+scale = Vector2(0.15066823, -0.15550296)
+texture = ExtResource("3_rrhtf")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="world/path" unique_id=955029013]
+position = Vector2(-315.00006, 280)
+rotation = -3.1415927
+scale = Vector2(-4.7578692, -24.617582)
+shape = SubResource("RectangleShape2D_sasra")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="world/path/CollisionShape2D8" unique_id=141312228]
+scale = Vector2(0.15066823, -0.15550296)
+texture = ExtResource("3_rrhtf")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="world/path" unique_id=896061751]
+position = Vector2(-312.00003, 711)
+rotation = -3.1415927
+scale = Vector2(-4.7578692, -24.617582)
+shape = SubResource("RectangleShape2D_sasra")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="world/path/CollisionShape2D9" unique_id=2147080793]
+scale = Vector2(0.15066823, -0.15550296)
+texture = ExtResource("3_rrhtf")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="world/path" unique_id=1910767752]
+position = Vector2(-507.00003, 79.00001)
+rotation = -4.712389
+scale = Vector2(-4.7578692, -24.617582)
+shape = SubResource("RectangleShape2D_sasra")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="world/path/CollisionShape2D7" unique_id=1298947094]
+scale = Vector2(0.15066823, -0.15550296)
+texture = ExtResource("3_rrhtf")
+
+[node name="finish" type="Area2D" parent="world" unique_id=1818641814]
+position = Vector2(-306, 964)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("5_soq75")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world/finish" unique_id=2031111820]
+position = Vector2(0, -1)
+scale = Vector2(6.4300494, 6.4300494)
+shape = SubResource("RectangleShape2D_2q0fw")
+
+[node name="Sprite2D" type="Sprite2D" parent="world/finish" unique_id=362803694]
+texture = ExtResource("3_rrhtf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="world/finish" unique_id=1543874165]
+
+[node name="progress" type="ProgressBar" parent="world/finish/CanvasLayer" unique_id=575189571]
+top_level = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -124.0
+offset_top = 73.0
+offset_right = -120.0
+offset_bottom = 100.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+step = 1.0
+value = 100.0
+rounded = true
+metadata/_edit_use_anchors_ = true
+
+[node name="spawner_block" parent="world" unique_id=531980416 instance=ExtResource("2_t00nl")]
+position = Vector2(540, 550)
+easy_enemies = Array[PackedScene]([ExtResource("4_dlqjn")])
+
+[node name="pathing" type="Path2D" parent="world" unique_id=1916981585]
+position = Vector2(1209, 1527)
+curve = SubResource("Curve2D_ia1lp")
+metadata/_edit_lock_ = true
+
+[node name="player" type="CharacterBody2D" parent="." unique_id=15166205]
+position = Vector2(300, 405)
+collision_mask = 48
+motion_mode = 1
+script = ExtResource("6_oopnc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player" unique_id=219950874]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_ia1lp")
+
+[node name="Sprite2D" type="Sprite2D" parent="player" unique_id=392853435]
+texture = ExtResource("3_rrhtf")
+
+[node name="camera" type="Camera2D" parent="player" unique_id=604084961]
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[connection signal="body_entered" from="world/finish" to="world/finish" method="_on_body_entered"]
