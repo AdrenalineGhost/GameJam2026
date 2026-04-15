@@ -6,5 +6,7 @@
 [node name="easy_enemy" type="PathFollow2D" unique_id=1601656415]
 rotation = -1.57153
 script = ExtResource("1_ktvmw")
+speed = 500
 
 [node name="easy_enemy" parent="." unique_id=1851651068 instance=ExtResource("2_ktvmw")]
+health = 11

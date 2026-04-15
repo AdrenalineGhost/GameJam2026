@@ -8,6 +8,8 @@ extends Node2D
 @export var time_between_spawns = 150
 ## Timeout per wave in s
 @export var timeout = 30
+## Money you start with
+@export var money = 0
 
 @export_category("Difficulty")
 ## Difficulty will scale linearly with wave_number
@@ -52,6 +54,7 @@ var wave_time = 0
 var amount_spawned = 0
 var total_amount_spawned = 0
 var pause = false
+var amount_enemies_last_round = 0
 
 func _process(delta: float) -> void:
 	_increment_time(delta)
@@ -77,8 +80,10 @@ func _wave_started() -> bool:
 func _spawn_check() -> bool:
 	if (time>=time_between_spawns*.01):
 		time = 0
-		if (amount_spawned < amount_of_enemies * (amount_of_enemies_scaling ** wave)):
+		
+		if (amount_spawned < amount_enemies_last_round + amount_of_enemies + (amount_of_enemies_scaling ** wave)):
 			return true
+		amount_enemies_last_round += amount_of_enemies + (amount_of_enemies_scaling ** wave)
 		_end_wave()
 	return false
 	
@@ -91,13 +96,14 @@ func _end_wave():
 func _spawn_enemy(enemy: PackedScene) -> PathFollow2D:
 	## Will spawn the enemy entity and return its node
 	var temp = enemy.instantiate()
+	temp.death.connect(_death_cleanup)
 	_calculate_stats(temp.get_child(0))
 	pathing_node.add_child(temp)
 	amount_spawned += 1
 	return temp
 	
 func _calculate_stats(enemy: CharacterBody2D):
-	enemy.health = enemy.health * (health_scaling ** wave)
+	enemy.health = enemy.health + (health_scaling ** wave)
 	
 func _decide_enemy() -> PackedScene:
 	## Should decide what enemy to spawn
@@ -109,8 +115,6 @@ func _start_wave():
 	pause = false
 	time = 0
 	
-
-
 func _ready() -> void:
 	finish_node = _type_check("Area2D", finish_node_name)
 	pathing_node = _type_check("Path2D", pathing_node_name)
@@ -119,6 +123,11 @@ func _ready() -> void:
 func _type_check(type:String, name:String) -> Node:
 	var temp = get_parent().get_node(name)
 	return temp
+	
+func _death_cleanup(entity:Node2D, money:int):
+	self.money += money
+	entity.queue_free()
+
 	
 
 
