@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c4ihkfackmtbh"]
+
+[ext_resource type="Script" uid="uid://bsmg0p0f2qn0o" path="res://world/builder_blocks/spawning_logic.gd" id="1_6r8uv"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mi7xb"]
+size = Vector2(100, 100)
+
+[node name="spawner_block" type="Node2D" unique_id=531980416]
+script = ExtResource("1_6r8uv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=470841620]
+texture = SubResource("PlaceholderTexture2D_mi7xb")

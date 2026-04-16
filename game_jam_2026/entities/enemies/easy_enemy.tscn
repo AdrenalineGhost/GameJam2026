@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://qeikjdj32f1g"]
+
+[ext_resource type="Script" uid="uid://c6y7qhlheuhfr" path="res://entities/enemies/super_path.gd" id="1_ktvmw"]
+[ext_resource type="PackedScene" uid="uid://detcme3ojddpy" path="res://entities/enemies/enemy_template.tscn" id="2_ktvmw"]
+
+[node name="easy_enemy" type="PathFollow2D" unique_id=1601656415]
+rotation = -1.57153
+script = ExtResource("1_ktvmw")
+speed = 500
+
+[node name="easy_enemy" parent="." unique_id=1851651068 instance=ExtResource("2_ktvmw")]
+health = 11
