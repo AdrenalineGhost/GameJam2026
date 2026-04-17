@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://vftjgnb3ayge"]
+
+[ext_resource type="Script" uid="uid://sva2qgsocpo4" path="res://gui/gui.gd" id="1_nrcpj"]
+[ext_resource type="PackedScene" uid="uid://c0f1g1wlc8pp8" path="res://gui/place_plants.tscn" id="1_vy2c7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nrcpj"]
+
+[node name="GUI" type="CanvasLayer" unique_id=1652777729]
+script = ExtResource("1_nrcpj")
+
+[node name="PlacePlants" parent="." unique_id=550224877 instance=ExtResource("1_vy2c7")]
+offset_left = 5.0
+offset_top = 40.0
+offset_right = 5.0
+offset_bottom = 40.0
+
+[node name="health" type="ProgressBar" parent="." unique_id=1217068200 groups=["UI"]]
+top_level = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -19.0
+offset_top = 11.0
+offset_right = -15.0
+offset_bottom = 38.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+step = 1.0
+value = 100.0
+rounded = true
+
+[node name="wave_counter" type="Label" parent="." unique_id=1318378765 groups=["UI", "spawner_utils"]]
+offset_left = 16.0
+offset_top = 9.0
+offset_right = 77.0
+offset_bottom = 32.0
+text = "testtext"
+label_settings = SubResource("LabelSettings_nrcpj")

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c0f1g1wlc8pp8"]
+
+[ext_resource type="Script" uid="uid://c3bex38s6bn5t" path="res://gui/place_plants.gd" id="1_sdo74"]
+
+[node name="PlacePlants" type="Control" unique_id=550224877]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sdo74")
+
+[node name="ShooterButton" type="Button" parent="." unique_id=1442319516]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 7.0
+offset_right = 156.0
+offset_bottom = 55.0
+text = "New shooter Plant
+"
+
+[connection signal="pressed" from="ShooterButton" to="." method="_on_shooter_button_pressed"]
