@@ -26,7 +26,7 @@ offset_left = 8.0
 offset_top = 60.0
 offset_right = 183.0
 offset_bottom = 108.0
-text = "New fire Plant (1)
+text = "New fire Plant (2)
 "
 
 [node name="IceButton" type="Button" parent="." unique_id=1685732633]
@@ -35,7 +35,7 @@ offset_left = 7.0
 offset_top = 112.0
 offset_right = 182.0
 offset_bottom = 160.0
-text = "New ice Plant (1)
+text = "New ice Plant (2)
 "
 
 [connection signal="pressed" from="ShooterButton" to="." method="_on_shooter_button_pressed"]

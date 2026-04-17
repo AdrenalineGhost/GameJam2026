@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bd4wtnun0jur5"]
 
 [ext_resource type="PackedScene" uid="uid://bfsmte48fo6y3" path="res://entities/plants/plant.tscn" id="1_1yahv"]
-[ext_resource type="Script" uid="uid://cpm6hnikmi3md" path="res://ice_plant.gd" id="2_yu3o3"]
+[ext_resource type="Script" uid="uid://cpm6hnikmi3md" path="res://entities/plants/ice_plant.gd" id="2_yu3o3"]
 [ext_resource type="Texture2D" uid="uid://iiud5je6lsyy" path="res://images/plants/ijs/ijsplant.png" id="3_yu3o3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dolfn"]

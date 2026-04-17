@@ -23,6 +23,7 @@ config/icon="res://images/icon.svg"
 
 PlantManager="*uid://k2u3s7mahc1n"
 GuiManager="*uid://07a6036w3r8r"
+Wallet="*uid://dk36edra677uo"
 
 [dotnet]
 

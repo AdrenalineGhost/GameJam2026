@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://sva2qgsocpo4" path="res://gui/gui.gd" id="1_nrcpj"]
 [ext_resource type="PackedScene" uid="uid://c0f1g1wlc8pp8" path="res://gui/place_plants.tscn" id="1_vy2c7"]
+[ext_resource type="Texture2D" uid="uid://crs0bb6xm7ka4" path="res://images/MONEE/mony.png" id="3_ocd2n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nrcpj"]
 
@@ -36,3 +37,26 @@ offset_right = 77.0
 offset_bottom = 32.0
 text = "testtext"
 label_settings = SubResource("LabelSettings_nrcpj")
+
+[node name="money" type="Label" parent="." unique_id=817510779]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -68.0
+offset_top = 53.0
+offset_right = -40.0
+offset_bottom = 76.0
+grow_horizontal = 0
+text = "xxx"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1958436837]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -35.0
+offset_top = 47.0
+offset_right = -3.0
+offset_bottom = 79.0
+grow_horizontal = 0
+texture = ExtResource("3_ocd2n")
