@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bgpsfpr8n33f8"]
 
 [ext_resource type="PackedScene" uid="uid://bfsmte48fo6y3" path="res://entities/plants/plant.tscn" id="1_wx3fg"]
-[ext_resource type="Script" uid="uid://cmohhnt2bt3cn" path="res://turret_plant.gd" id="2_7gjlk"]
-[ext_resource type="Texture2D" uid="uid://cijxt27kqmdjt" path="res://images/plants/Outdoor_Decor_Free.png" id="3_wx3fg"]
+[ext_resource type="Script" uid="uid://cmohhnt2bt3cn" path="res://entities/turret_plant.gd" id="2_7gjlk"]
+[ext_resource type="Texture2D" uid="uid://dwiv0mr5mceyp" path="res://images/plants/aapsjesorchid/aapjesorchid.png" id="3_wx3fg"]
 
 [sub_resource type="Animation" id="Animation_rrhtf"]
 length = 0.001
@@ -40,36 +40,11 @@ _data = {
 &"shoot": SubResource("Animation_dlqjn")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7gjlk"]
-atlas = ExtResource("3_wx3fg")
-region = Rect2(80, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rsogc"]
-atlas = ExtResource("3_wx3fg")
-region = Rect2(96, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gfmke"]
-atlas = ExtResource("3_wx3fg")
-region = Rect2(80, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ha1wc"]
-atlas = ExtResource("3_wx3fg")
-region = Rect2(96, 32, 16, 16)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_s8fol"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7gjlk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rsogc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gfmke")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ha1wc")
+"texture": ExtResource("3_wx3fg")
 }],
 "loop": true,
 "name": &"default",
@@ -89,7 +64,6 @@ z_index = 255
 position = Vector2(-2.7749636, 3.2250512)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_s8fol")
-frame = 3
 
 [node name="canon" type="Sprite2D" parent="." index="4" unique_id=784171091]
 position = Vector2(0.24799602, 5.0839186)
