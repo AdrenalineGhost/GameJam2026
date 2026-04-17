@@ -1,7 +1,7 @@
 extends Node
 
 var placing = false
-@onready var tilemap = self.get_parent().get_node("tile_map")
+var tilemap
 
 func pickUp(plant):
 	print(get_tree().root.get_children())
