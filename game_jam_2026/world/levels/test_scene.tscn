@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cn8prrbj7es3p" path="res://images/Ground/Path_Tile.png" id="5_6pj66"]
 [ext_resource type="Script" uid="uid://dddsodi6lfc23" path="res://world/builder_blocks/finish.gd" id="5_soq75"]
 [ext_resource type="Script" uid="uid://b3h7uej4g5uyq" path="res://player/BodyTest.gd" id="6_oopnc"]
+[ext_resource type="Texture2D" uid="uid://dq6cyb0f3b8x6" path="res://images/gnome.png" id="11_oopnc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oopnc"]
 atlas = ExtResource("3_oopnc")
@@ -231,7 +232,8 @@ position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_ia1lp")
 
 [node name="Sprite2D" type="Sprite2D" parent="player" unique_id=392853435]
-texture = ExtResource("3_rrhtf")
+scale = Vector2(3, 3)
+texture = ExtResource("11_oopnc")
 
 [node name="Camera2D" type="Camera2D" parent="player" unique_id=2138604793]
 

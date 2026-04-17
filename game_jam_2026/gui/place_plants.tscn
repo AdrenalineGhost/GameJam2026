@@ -17,7 +17,27 @@ offset_left = 9.0
 offset_top = 7.0
 offset_right = 156.0
 offset_bottom = 55.0
-text = "New shooter Plant
+text = "New shooter Plant (1)
+"
+
+[node name="FireButton" type="Button" parent="." unique_id=762799040]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 60.0
+offset_right = 183.0
+offset_bottom = 108.0
+text = "New fire Plant (1)
+"
+
+[node name="IceButton" type="Button" parent="." unique_id=1685732633]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 112.0
+offset_right = 182.0
+offset_bottom = 160.0
+text = "New ice Plant (1)
 "
 
 [connection signal="pressed" from="ShooterButton" to="." method="_on_shooter_button_pressed"]
+[connection signal="pressed" from="FireButton" to="." method="_on_fire_button_pressed"]
+[connection signal="pressed" from="IceButton" to="." method="_on_ice_button_pressed"]

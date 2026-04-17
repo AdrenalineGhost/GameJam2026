@@ -2,7 +2,7 @@ extends Plant
 
 func _ready_extend():
 	print(placed)
-	sprite = $TurretPlantSprite
+	sprite = $FirePlantSprite
 
 @export var damage: int = 2
 var x2 = self.global_position.x
@@ -36,7 +36,6 @@ func _process_extend(delta: float) -> void:
 		self.global_rotation = _check_rotation(target)
 		print("Turning to %s" % self.global_rotation_degrees)
 		_damage_enemies(target)
-		
 
 func _choose_target() -> PathFollow2D:
 	return enemies_inside_range.front()
@@ -50,5 +49,6 @@ func _on_range_body_exited(_body: Node2D) -> void:
 func _damage_enemies(target: CharacterBody2D) -> void:
 	if (time >= 1):
 		target.health -= damage
+		target.burned = true
 		time = 0
 		$AnimationPlayer.play("shoot")

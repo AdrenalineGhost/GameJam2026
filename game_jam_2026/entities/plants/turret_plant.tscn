@@ -78,7 +78,7 @@ animations = [{
 
 [node name="TurretPlant" unique_id=1990589534 instance=ExtResource("1_wx3fg")]
 script = ExtResource("2_7gjlk")
-damage = 500
+damage = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2" unique_id=638714021]
 root_node = NodePath("../canon")
