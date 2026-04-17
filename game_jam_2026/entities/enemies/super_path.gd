@@ -15,7 +15,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if (self.get_child(0).health <= 0):
-		Wallet.addMoney(1)
+		Wallet.addMoney(money)
 		death.emit(self, money)
 	loop_movement(delta)
 	
