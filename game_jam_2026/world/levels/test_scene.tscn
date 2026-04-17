@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://qeikjdj32f1g" path="res://entities/enemies/easy_enemy.tscn" id="4_dlqjn"]
 [ext_resource type="Script" uid="uid://dddsodi6lfc23" path="res://world/builder_blocks/finish.gd" id="5_soq75"]
 [ext_resource type="Script" uid="uid://b3h7uej4g5uyq" path="res://player/BodyTest.gd" id="6_oopnc"]
+[ext_resource type="PackedScene" uid="uid://u07wukaof1we" path="res://entities/enemies/normal_enemy.tscn" id="6_soq75"]
 [ext_resource type="Script" uid="uid://b86rv11fldfou" path="res://world/levels/canvas.gd" id="6_t00nl"]
+[ext_resource type="Texture2D" uid="uid://dq6cyb0f3b8x6" path="res://images/gnome.png" id="8_dlqjn"]
 [ext_resource type="Script" uid="uid://dapxn8vgmlqcl" path="res://world/levels/test_tower.gd" id="8_rrhtf"]
 
 [sub_resource type="Gradient" id="Gradient_ia1lp"]
@@ -240,6 +242,7 @@ position = Vector2(550, 732)
 timeout = 2
 amount_of_enemies = 2
 easy_enemies = Array[PackedScene]([ExtResource("4_dlqjn")])
+normal_enemies = Array[PackedScene]([ExtResource("6_soq75")])
 
 [node name="canvas" type="CanvasLayer" parent="world" unique_id=1543874165 groups=["UI"]]
 script = ExtResource("6_t00nl")
@@ -272,12 +275,12 @@ motion_mode = 1
 script = ExtResource("6_oopnc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player" unique_id=219950874]
-visible = false
 position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_ia1lp")
 
 [node name="Sprite2D" type="Sprite2D" parent="player" unique_id=392853435]
-texture = ExtResource("3_rrhtf")
+scale = Vector2(3.7351997, 3.7351997)
+texture = ExtResource("8_dlqjn")
 
 [node name="camera" type="Camera2D" parent="player" unique_id=604084961]
 scale = Vector2(1.1981248, 1.1981248)
@@ -296,7 +299,6 @@ root_node = NodePath("../canon")
 libraries/ = SubResource("AnimationLibrary_soq75")
 
 [node name="tower_hitbox" type="CollisionShape2D" parent="test_tower" unique_id=1592403257]
-visible = false
 shape = SubResource("CircleShape2D_t00nl")
 
 [node name="Sprite2D" type="Sprite2D" parent="test_tower" unique_id=335913348]
@@ -315,7 +317,6 @@ collision_layer = 128
 collision_mask = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="test_tower/range" unique_id=390250300]
-visible = false
 scale = Vector2(4.126779, 4.126779)
 shape = SubResource("CircleShape2D_oopnc")
 

@@ -38,8 +38,17 @@ extends Node2D
 @export var pathing_node_name = "pathing"
 @export var finish_node_name = "finish"
 
+var enemies_by_grade = {}
+
 # Signals
 signal wave_change(wave:int)
+
+enum Grade {
+	EASY = 1,
+	NORMAL = 2,
+	HARD = 3,
+	INSANE = 4
+}
 
 # Sister nodes needed
 var pathing_node: Path2D
@@ -55,6 +64,19 @@ var amount_spawned = 0
 var total_amount_spawned = 0
 var pause = false
 var amount_enemies_last_round = 0
+
+
+func _determine_chance(difficulty: int) -> Array[float]:
+	match difficulty:
+		Grade.EASY:
+			return [1.0] # only EASY
+		Grade.NORMAL:
+			return [0.67, 1.0] # EASY, NORMAL
+		Grade.HARD:
+			return [0.5, 0.8, 1.0] # EASY, NORMAL, HARD
+		Grade.INSANE:
+			return [0.4, 0.7, 0.9, 1.0] # EASY, NORMAL, HARD, INSANE
+	return [1.0]
 
 func _process(delta: float) -> void:
 	_increment_time(delta)
@@ -106,8 +128,22 @@ func _calculate_stats(enemy: CharacterBody2D):
 	enemy.health = enemy.health + (health_scaling ** wave)
 	
 func _decide_enemy() -> PackedScene:
-	## Should decide what enemy to spawn
-	return easy_enemies[0]
+	var chances = _determine_chance(difficulty)
+	var roll = randf()
+
+	var ordered_grades = [Grade.EASY, Grade.NORMAL, Grade.HARD, Grade.INSANE]
+
+	for i in range(chances.size()):
+		if roll <= chances[i]:
+			print("reached")
+			var grade = ordered_grades[i]
+			var pool: Array = enemies_by_grade.get(grade, [])
+			if pool.size() > 0:
+				return pool[randi() % pool.size()]
+
+	# fallback
+	print("fallback")
+	return easy_enemies[randi() % easy_enemies.size()]
 	
 func _start_wave():
 	wave += 1
@@ -116,6 +152,12 @@ func _start_wave():
 	time = 0
 	
 func _ready() -> void:
+	enemies_by_grade = {
+		Grade.EASY: easy_enemies,
+		Grade.NORMAL: normal_enemies,
+		Grade.HARD: hard_enemies,
+		Grade.INSANE: insane_enemies
+	}
 	finish_node = _type_check("Area2D", finish_node_name)
 	pathing_node = _type_check("Path2D", pathing_node_name)
 	_start_wave()

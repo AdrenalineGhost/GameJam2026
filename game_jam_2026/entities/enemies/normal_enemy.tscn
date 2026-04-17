@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://u07wukaof1we"]
+
+[ext_resource type="Script" uid="uid://c6y7qhlheuhfr" path="res://entities/enemies/super_path.gd" id="1_pmqaq"]
+[ext_resource type="PackedScene" uid="uid://detcme3ojddpy" path="res://entities/enemies/enemy_template.tscn" id="2_qfek2"]
+[ext_resource type="SpriteFrames" uid="uid://bva3emk62ijes" path="res://images/icy_hewo/sprite_frame_icy.tres" id="3_qfek2"]
+
+[node name="easy_enemy" type="PathFollow2D" unique_id=1601656415]
+rotation = -1.57153
+rotates = false
+script = ExtResource("1_pmqaq")
+speed = 200
+
+[node name="easy_enemy" parent="." unique_id=1851651068 instance=ExtResource("2_qfek2")]
+health = 20
+Spriteframes = ExtResource("3_qfek2")

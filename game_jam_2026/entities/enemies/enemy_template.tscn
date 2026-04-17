@@ -1,10 +1,43 @@
 [gd_scene format=3 uid="uid://detcme3ojddpy"]
 
 [ext_resource type="Script" uid="uid://bss60a71iatmm" path="res://entities/enemies/enemy_template.gd" id="1_5n4er"]
-[ext_resource type="Texture2D" uid="uid://iud5lfp5pv3n" path="res://images/icon.svg" id="1_hft2i"]
+[ext_resource type="Texture2D" uid="uid://b46tv14xplfjv" path="res://images/treewee/treewee.png" id="2_5n4er"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xkwkg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coq8p"]
 size = Vector2(127, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5n4er"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5n4er")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
 
 [node name="enemy" type="CharacterBody2D" unique_id=1851651068]
 rotation = 1.57153
@@ -12,10 +45,13 @@ scale = Vector2(1.0000001, 1.0000001)
 collision_layer = 2
 collision_mask = 12
 script = ExtResource("1_5n4er")
+Spriteframes = SubResource("SpriteFrames_xkwkg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=827888390]
 position = Vector2(-0.5, 1)
 shape = SubResource("RectangleShape2D_coq8p")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=614993764]
-texture = ExtResource("1_hft2i")
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=1813228021]
+scale = Vector2(3.915553, 3.915553)
+sprite_frames = SubResource("SpriteFrames_5n4er")
+animation = &"down"
