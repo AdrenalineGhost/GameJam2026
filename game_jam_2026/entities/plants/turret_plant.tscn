@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://bgpsfpr8n33f8"]
+
+[ext_resource type="PackedScene" uid="uid://bfsmte48fo6y3" path="res://entities/plants/plant.tscn" id="1_wx3fg"]
+[ext_resource type="Script" uid="uid://cmohhnt2bt3cn" path="res://turret_plant.gd" id="2_7gjlk"]
+[ext_resource type="Texture2D" uid="uid://cijxt27kqmdjt" path="res://images/plants/Outdoor_Decor_Free.png" id="3_wx3fg"]
+
+[sub_resource type="Animation" id="Animation_rrhtf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.24799602, 5.0839186)]
+}
+
+[sub_resource type="Animation" id="Animation_dlqjn"]
+resource_name = "shoot"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.24799602, 8.059871), Vector2(0.24799602, 5.0839186), Vector2(0.24799602, 8.059871)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gfmke"]
+_data = {
+&"RESET": SubResource("Animation_rrhtf"),
+&"shoot": SubResource("Animation_dlqjn")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gjlk"]
+atlas = ExtResource("3_wx3fg")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsogc"]
+atlas = ExtResource("3_wx3fg")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfmke"]
+atlas = ExtResource("3_wx3fg")
+region = Rect2(80, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha1wc"]
+atlas = ExtResource("3_wx3fg")
+region = Rect2(96, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s8fol"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7gjlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsogc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfmke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha1wc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TurretPlant" unique_id=1990589534 instance=ExtResource("1_wx3fg")]
+script = ExtResource("2_7gjlk")
+damage = 500
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2" unique_id=638714021]
+root_node = NodePath("../canon")
+libraries/ = SubResource("AnimationLibrary_gfmke")
+
+[node name="TurretPlantSprite" type="AnimatedSprite2D" parent="." index="3" unique_id=1633996690]
+z_index = 255
+position = Vector2(-2.7749636, 3.2250512)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_s8fol")
+frame = 3
+
+[node name="canon" type="Sprite2D" parent="." index="4" unique_id=784171091]
+position = Vector2(0.24799602, 5.0839186)
+rotation = 3.1415927
+scale = Vector2(0.28546304, -0.9533366)
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_range_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_range_body_exited"]
