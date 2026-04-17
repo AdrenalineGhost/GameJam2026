@@ -10,6 +10,7 @@ func pickUp(plant):
 	var inst = plant.instantiate()
 	inst.tilemap = tilemap
 	add_child(inst)
+	print(inst)
 	
 func putDown():
 	placing = false

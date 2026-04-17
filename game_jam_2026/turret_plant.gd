@@ -1,9 +1,10 @@
 extends Plant
 
-func _ready():
-	sprite = $AnimatedSprite2D
+func _ready_extend():
+	print(placed)
+	sprite = $TurretPlantSprite
 
-@export var damage: int = 5
+@export var damage: int = 500
 var x2 = self.global_position.x
 var y2 = self.global_position.y
 var time = 0
@@ -28,7 +29,7 @@ func _check_rotation(target: CharacterBody2D) -> float:
 	var rad_to_target = calc_radians_from(target)
 	return rad_to_target
 	
-func _process(delta: float) -> void:
+func _process_extend(delta: float) -> void:
 	time += delta
 	if !enemies_inside_range.is_empty():
 		var target: CharacterBody2D = _choose_target().get_child(0)
