@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bfsmte48fo6y3"]
+
+[ext_resource type="Script" uid="uid://rsl3ghyqr0na" path="res://entities/plants/plant.gd" id="1_rlicp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h7iki"]
+radius = 38.013157
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v8101"]
+radius = 165.02727
+
+[node name="Plant" type="Node2D" unique_id=1990589534]
+script = ExtResource("1_rlicp")
+
+[node name="PlacingReserveArea" type="Area2D" parent="." unique_id=421328272]
+
+[node name="PlacingAura" type="CollisionShape2D" parent="PlacingReserveArea" unique_id=1307933540]
+shape = SubResource("CircleShape2D_h7iki")
+debug_color = Color(0.9569457, 3.657937e-06, 0.53781414, 0.41960785)
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1539870379]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1291560604]
+shape = SubResource("CircleShape2D_v8101")
+debug_color = Color(5.2943824e-06, 0.5756406, 0.82395315, 0.41960785)
+
+[connection signal="area_entered" from="PlacingReserveArea" to="." method="_on_placing_reserve_area_area_entered"]
+[connection signal="area_exited" from="PlacingReserveArea" to="." method="_on_placing_reserve_area_area_exited"]

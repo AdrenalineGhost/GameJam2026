@@ -19,6 +19,10 @@ run/main_scene="res://world/levels/test_scene.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://images/icon.svg"
 
+[autoload]
+
+PlantManager="*uid://k2u3s7mahc1n"
+
 [dotnet]
 
 project/assembly_name="GameJam2026"

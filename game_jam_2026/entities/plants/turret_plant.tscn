@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://bgpsfpr8n33f8"]
+
+[ext_resource type="PackedScene" uid="uid://bfsmte48fo6y3" path="res://entities/plants/plant.tscn" id="1_wx3fg"]
+[ext_resource type="Script" uid="uid://cmohhnt2bt3cn" path="res://turret_plant.gd" id="2_7gjlk"]
+[ext_resource type="Texture2D" uid="uid://iud5lfp5pv3n" path="res://images/icon.svg" id="3_rsogc"]
+
+[sub_resource type="Animation" id="Animation_rrhtf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.24799602, 5.0839186)]
+}
+
+[sub_resource type="Animation" id="Animation_dlqjn"]
+resource_name = "shoot"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.24799602, 8.059871), Vector2(0.24799602, 5.0839186), Vector2(0.24799602, 8.059871)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gfmke"]
+_data = {
+&"RESET": SubResource("Animation_rrhtf"),
+&"shoot": SubResource("Animation_dlqjn")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ha1wc"]
+
+[sub_resource type="Gradient" id="Gradient_dlqjn"]
+offsets = PackedFloat32Array(0, 0.9568733, 1)
+colors = PackedColorArray(1, 1, 0, 0, 0.78235406, 0.6080512, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s8fol"]
+gradient = SubResource("Gradient_dlqjn")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0.1)
+
+[node name="TurretPlant" unique_id=1990589534 instance=ExtResource("1_wx3fg")]
+script = ExtResource("2_7gjlk")
+damage = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2" unique_id=638714021]
+root_node = NodePath("../canon")
+libraries/ = SubResource("AnimationLibrary_gfmke")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="3" unique_id=1633996690]
+position = Vector2(-3.7749634, -5.774948)
+scale = Vector2(1.0972663, 1.0972663)
+
+[node name="canon" type="Sprite2D" parent="." index="4" unique_id=784171091]
+position = Vector2(0.24799602, 5.0839186)
+rotation = 3.1415927
+scale = Vector2(0.28546304, -0.9533366)
+texture = ExtResource("3_rsogc")
+
+[node name="range" type="Area2D" parent="." index="5" unique_id=312133242]
+position = Vector2(0.9998779, -2.0000076)
+scale = Vector2(8.064646, 8.064646)
+collision_layer = 128
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="range" index="0" unique_id=908369731]
+visible = false
+scale = Vector2(4.126779, 4.126779)
+shape = SubResource("CircleShape2D_ha1wc")
+
+[node name="PointLight2D" type="PointLight2D" parent="range" index="1" unique_id=1288029706]
+position = Vector2(65.84294, 14.011774)
+scale = Vector2(16.271408, 16.271408)
+color = Color(0.9670151, 0.44045988, 0, 1)
+energy = 0.4
+texture = SubResource("GradientTexture2D_s8fol")
+texture_scale = 0.1
