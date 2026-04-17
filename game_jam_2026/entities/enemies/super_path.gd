@@ -3,7 +3,7 @@ extends PathFollow2D
 @export var speed = 100
 var money: int
 
-@onready var sprite = $easy_enemy/Sprite2D
+@onready var sprite = $easy_enemy/anim
 
 signal death(entity:Node2D, money:int)
 # Called when the node enters the scene tree for the first time.

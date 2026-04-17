@@ -11,9 +11,7 @@
 [ext_resource type="Script" uid="uid://dddsodi6lfc23" path="res://world/builder_blocks/finish.gd" id="5_soq75"]
 [ext_resource type="Script" uid="uid://b3h7uej4g5uyq" path="res://player/BodyTest.gd" id="6_oopnc"]
 [ext_resource type="PackedScene" uid="uid://u07wukaof1we" path="res://entities/enemies/normal_enemy.tscn" id="6_soq75"]
-[ext_resource type="Script" uid="uid://b86rv11fldfou" path="res://world/levels/canvas.gd" id="6_t00nl"]
 [ext_resource type="Texture2D" uid="uid://dq6cyb0f3b8x6" path="res://images/gnome.png" id="8_dlqjn"]
-[ext_resource type="Script" uid="uid://dapxn8vgmlqcl" path="res://world/levels/test_tower.gd" id="8_rrhtf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oopnc"]
 atlas = ExtResource("3_oopnc")
@@ -243,45 +241,3 @@ scale = Vector2(1.1981248, 1.1981248)
 zoom = Vector2(0.62, 0.62)
 limit_smoothed = true
 position_smoothing_enabled = true
-
-[node name="test_tower" type="StaticBody2D" parent="." unique_id=322039200]
-position = Vector2(-531, -114)
-scale = Vector2(8.064646, 8.064646)
-collision_layer = 65
-script = ExtResource("8_rrhtf")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="test_tower" unique_id=147080794]
-root_node = NodePath("../canon")
-libraries/ = SubResource("AnimationLibrary_soq75")
-
-[node name="tower_hitbox" type="CollisionShape2D" parent="test_tower" unique_id=1592403257]
-shape = SubResource("CircleShape2D_t00nl")
-
-[node name="Sprite2D" type="Sprite2D" parent="test_tower" unique_id=335913348]
-rotation = 3.1415927
-scale = Vector2(-0.13605884, -0.13605884)
-texture = ExtResource("3_rrhtf")
-region_rect = Rect2(0, 0, 256, 256)
-
-[node name="canon" type="Sprite2D" parent="test_tower" unique_id=706634021]
-position = Vector2(0.24799602, 5.0839186)
-scale = Vector2(-0.035396848, 0.118211836)
-texture = ExtResource("3_rrhtf")
-
-[node name="range" type="Area2D" parent="test_tower" unique_id=1822641238]
-collision_layer = 128
-collision_mask = 2
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="test_tower/range" unique_id=390250300]
-scale = Vector2(4.126779, 4.126779)
-shape = SubResource("CircleShape2D_oopnc")
-
-[node name="PointLight2D" type="PointLight2D" parent="test_tower/range" unique_id=355165161]
-scale = Vector2(16.271408, 16.271408)
-color = Color(0.9670151, 0.44045988, 0, 1)
-energy = 0.4
-texture = SubResource("GradientTexture2D_soq75")
-texture_scale = 0.1
-
-[connection signal="body_entered" from="world/finish" to="world/finish" method="_on_body_entered"]
-[connection signal="health_changed" from="world/finish" to="." method="_on_finish_health_changed"]

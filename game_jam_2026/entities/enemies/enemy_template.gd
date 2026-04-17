@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var iced = false
 @export var burned = false
 
-@onready var sprite = $Sprite2D
+@onready var sprite = $anim
 
 var last_pos: Vector2
 var burnDPS = 2
@@ -37,5 +37,3 @@ func _process(delta: float) -> void:
 	if(burned):
 		sprite.modulate = Color(0.813, 0.346, 0.153)
 		health -= burnDPS * delta
-
-
