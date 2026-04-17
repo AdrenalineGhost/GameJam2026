@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://b6kwdl5dkpntp"]
+
+[ext_resource type="PackedScene" uid="uid://bfsmte48fo6y3" path="res://entities/plants/plant.tscn" id="1_ouht4"]
+[ext_resource type="Script" uid="uid://1mc7jdmu5kfk" path="res://fire_plant.gd" id="2_57j8m"]
+[ext_resource type="Texture2D" uid="uid://d1oo3317a24bq" path="res://images/plants/vuur/vuurplant.png" id="3_57j8m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hm6ka"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_57j8m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_rrhtf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.24799602, 5.0839186)]
+}
+
+[sub_resource type="Animation" id="Animation_dlqjn"]
+resource_name = "shoot"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.24799602, 8.059871), Vector2(0.24799602, 5.0839186), Vector2(0.24799602, 8.059871)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_57j8m"]
+_data = {
+&"RESET": SubResource("Animation_rrhtf"),
+&"shoot": SubResource("Animation_dlqjn")
+}
+
+[node name="FirePlant" unique_id=1990589534 instance=ExtResource("1_ouht4")]
+script = ExtResource("2_57j8m")
+damage = 2
+
+[node name="FirePlantSprite" type="AnimatedSprite2D" parent="." index="2" unique_id=1173185427]
+z_index = 255
+position = Vector2(0, -3.8146973e-06)
+scale = Vector2(2.6179676, 2.6179676)
+sprite_frames = SubResource("SpriteFrames_hm6ka")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3" unique_id=140249187]
+root_node = NodePath("../canon")
+libraries/ = SubResource("AnimationLibrary_57j8m")
+
+[node name="canon" type="Sprite2D" parent="." index="4" unique_id=5055788]
+position = Vector2(0.24799602, 5.0839186)
+rotation = 3.1415927
+scale = Vector2(0.28546304, -0.9533366)
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_range_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_range_body_exited"]

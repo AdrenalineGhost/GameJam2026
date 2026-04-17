@@ -2,10 +2,13 @@ extends PathFollow2D
 ## The enemy's speed
 @export var speed = 100
 var money: int
+
+@onready var sprite = $easy_enemy/Sprite2D
+
 signal death(entity:Node2D, money:int)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	money = self.get_child(0).health
+	money = 2
 	pass # Replace with function body.
 
 
@@ -17,4 +20,5 @@ func _process(delta: float) -> void:
 	
 
 func loop_movement(delta: float) -> void:
-	progress += speed * delta
+	var speed_modifier = 0.5 if self.get_child(0).iced else 1.0
+	progress += speed * delta * speed_modifier

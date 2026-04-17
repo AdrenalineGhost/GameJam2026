@@ -147,7 +147,7 @@ func _decide_enemy() -> PackedScene:
 	
 func _start_wave():
 	wave += 1
-	wave_change.emit(wave)
+	GuiManager.change_wave(wave)
 	pause = false
 	time = 0
 	
