@@ -124,6 +124,8 @@ distance = -325.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2q0fw"]
 
+[sub_resource type="ImageTexture" id="ImageTexture_p5am3"]
+
 [sub_resource type="Curve2D" id="Curve2D_ia1lp"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -665, -663, 0, 0, 0, 0, -667, -1831, 0, 0, 0, 0, -1945, -1829, 0, 0, 0, 0, -1936, -1452, 0, 0, 0, 0, -1561, -1456, 0, 0, 0, 0, -1563, -678)
@@ -209,7 +211,8 @@ scale = Vector2(6.4300494, 6.4300494)
 shape = SubResource("RectangleShape2D_2q0fw")
 
 [node name="Sprite2D" type="Sprite2D" parent="world/finish" unique_id=362803694]
-texture = ExtResource("3_rrhtf")
+scale = Vector2(50, 50)
+texture = SubResource("ImageTexture_p5am3")
 
 [node name="pathing" type="Path2D" parent="world" unique_id=1916981585 groups=["spawner_utils"]]
 position = Vector2(1209, 1527)
