@@ -18,6 +18,8 @@ player :: struct {
 Enemy :: struct {
     pos: rl.Vector2,
     vel: rl.Vector2,
+    health: int,
+    texture: rl.Texture2D
 }
 
 Button :: struct {
@@ -33,6 +35,7 @@ Flower :: struct {
     pos: rl.Vector2,
     type: flower_type,
     rotation: f32,
+    texture: rl.Texture2D
 }
 
 FlowerArray: [dynamic]Flower
@@ -65,68 +68,76 @@ main :: proc() {
     player_img := rl.LoadTexture("assets/gnome.png")
     flower_img_1 := rl.LoadTexture("assets/flower1.png")
     enemy_icy := rl.LoadTexture("assets/front_face.png")
+    treewee := rl.LoadTexture("assets/treewee.png")
     
     player: player = player{
-	{0, 0},
-	10,
-	10,
-	rl.GREEN
+	      {0, 0},
+	      10,
+	      10,
+	      rl.GREEN
     }
 
     add_flow_btn := Button{ rl.Rectangle{50, 500, 100, 40}, "add flower" }
     setting_flower: bool = false
 
     for i in 0..<10 {
-	if i%2 == 0 {
-	    append(&EnemyArray, Enemy{
-		{100, 100},
-		{-40, 120}
-	    })
-	}
-	else {
-	    append(&EnemyArray, Enemy{
-		{100, 100},
-		{120, -40}
-	    })
-	}
+	      if i%2 == 0 {
+	          append(&EnemyArray, Enemy{
+		            {100, 100},
+		            {-40, 120},
+                50,
+                enemy_icy
+	          })
+	      }
+	      else {
+	          append(&EnemyArray, Enemy{
+		            {100, 100},
+		            {120, -40},
+                100,
+                treewee
+	          })
+	      }
     }
     
     for (!rl.WindowShouldClose()) {
-	{
-	    move_player(&player)
-	    if draw_button(add_flow_btn) {
-		append(&FlowerArray, Flower{rl.GetMousePosition(), flower_type.orchid, 0})
-		setting_flower = true
+	      {
+	          move_player(&player)
+	          if draw_button(add_flow_btn) {
+		            append(&FlowerArray, Flower{rl.GetMousePosition(), flower_type.orchid, 0, flower_img_1})
+		            setting_flower = true
             }
 
-	    if setting_flower {
-		mouse := rl.GetMousePosition()
-		rl.DrawRectangle(i32(mouse.x), i32(mouse.y), 10, 10, rl.RED)
-	    }
+	          if setting_flower {
+		            mouse := rl.GetMousePosition()
+		            rl.DrawRectangle(i32(mouse.x), i32(mouse.y), 10, 10, rl.RED)
+	          }
 
-	    if setting_flower {
-		if rl.IsMouseButtonReleased(.LEFT) {
-		    setting_flower = false
-		    FlowerArray[len(FlowerArray)-1].pos.x = f32(rl.GetMouseX())
-		    FlowerArray[len(FlowerArray)-1].pos.y = f32(rl.GetMouseY())
-		}
-	    }
-	}
-	
-	{
-	    rl.BeginDrawing()
-	    defer rl.EndDrawing()
-	    rl.ClearBackground({92, 156, 24, 255*0.8})
-	    /* draw_player(&player, player_img) */
-	    draw_flowers(&FlowerArray, flower_img_1)
-	    rotate_flowers_to_mouse(&FlowerArray, rl.GetMousePosition())
+	          if setting_flower {
+		            if rl.IsMouseButtonReleased(.LEFT) {
+		                setting_flower = false
+		                FlowerArray[len(FlowerArray)-1].pos.x = f32(rl.GetMouseX())
+		                FlowerArray[len(FlowerArray)-1].pos.y = f32(rl.GetMouseY())
+		            }
+	          }
+	      }
+	      
+	      {
+	          rl.BeginDrawing()
+	          defer rl.EndDrawing()
+	          rl.ClearBackground({92, 156, 24, 255*0.8})
+	          /* draw_player(&player, player_img) */
+	          draw_flowers(&FlowerArray)
+	          /* rotate_flowers_to_mouse(&FlowerArray, rl.GetMousePosition()) */
+            update_flowers_targeting(&FlowerArray, &EnemyArray)
 
-	    draw_enemies(&EnemyArray, enemy_icy)
-	    move_enemies(&EnemyArray)
-	}
+	          draw_enemies(&EnemyArray)
+	          move_enemies(&EnemyArray)
+	      }
     }
     rl.CloseWindow()
 }
+
+
 
 rotate_flowers_to_mouse :: proc(flowers: ^[dynamic]Flower, aim_to: rl.Vector2) {
     for &flower in flowers {
@@ -146,40 +157,38 @@ draw_player :: proc(player_char: ^player, player_img: rl.Texture2D) {
 
 }
 
-draw_enemies :: proc(enemies: ^[dynamic]Enemy, enemy_img: rl.Texture2D) {
+draw_enemies :: proc(enemies: ^[dynamic]Enemy) {
     for enemy in enemies {
-	rl.DrawTextureEx(enemy_img, {enemy.pos.x, enemy.pos.y}, 0, 5, rl.WHITE)	
+	      rl.DrawTextureEx(enemy.texture, {enemy.pos.x, enemy.pos.y}, 0, 5, rl.WHITE)	
     }
 }
 
 
-draw_flowers :: proc(flowers: ^[dynamic]Flower, flower_img_1: rl.Texture2D) {
+draw_flowers :: proc(flowers: ^[dynamic]Flower) {
     for flower in flowers {
-	if flower.type == flower_type.orchid {
-	    /* rl.DrawTextureEx(flower_img_1, {flower.pos.x + 50, flower.pos.y + 50}, flower.rotation, 5, rl.WHITE) */
-
-	    src := rl.Rectangle{0, 0, f32(flower_img_1.width), f32(flower_img_1.height)}
-	    dst := rl.Rectangle{flower.pos.x, flower.pos.y, 32 * 5, 32 * 5}
-	    origin := rl.Vector2{16 * 5, 16 * 5} // center pivot
-	    
-	    rl.DrawCircle(i32(flower.pos.x), i32(flower.pos.y), 250, {255, 255, 255, 100})
-	    rl.DrawTexturePro(flower_img_1, src, dst, origin, flower.rotation, rl.WHITE)
-	}
+	      if flower.type == flower_type.orchid {
+	          src := rl.Rectangle{0, 0, f32(flower.texture.width), f32(flower.texture.height)}
+	          dst := rl.Rectangle{flower.pos.x, flower.pos.y, 32 * 5, 32 * 5}
+	          origin := rl.Vector2{16 * 5, 16 * 5} // center pivot
+	          
+	          rl.DrawCircle(i32(flower.pos.x), i32(flower.pos.y), 250, {255, 255, 255, 100})
+	          rl.DrawTexturePro(flower.texture, src, dst, origin, flower.rotation, rl.WHITE)
+	      }
 
     }
 }
 
 move_enemies :: proc(enemies: ^[dynamic]Enemy) {
     for &enemy in enemies {
-	enemy.pos += enemy.vel * rl.GetFrameTime()
+	      enemy.pos += enemy.vel * rl.GetFrameTime()
 
-	if enemy.pos.x >= WIDTH || enemy.pos.x <= 0 {
-	    enemy.vel.x *= -1
-	}
-	
-	if enemy.pos.y >= HEIGHT || enemy.pos.y <= 0 {
-	    enemy.vel.y *= -1
-	}
+	      if enemy.pos.x >= WIDTH || enemy.pos.x <= 0 {
+	          enemy.vel.x *= -1
+	      }
+	      
+	      if enemy.pos.y >= HEIGHT || enemy.pos.y <= 0 {
+	          enemy.vel.y *= -1
+	      }
     }
 }
 
@@ -198,5 +207,62 @@ move_player :: proc(player: ^player) {
     }
     if rl.IsKeyDown(.RIGHT) {
         player.pos.x += speed * dt
+    }
+}
+
+get_nearest_enemy_in_range :: proc(
+    flower: Flower,
+    enemies: ^[dynamic]Enemy,
+    range: f32
+) -> (Enemy, bool) {
+
+    best_dist_sq := range * range
+    found := false
+    best_enemy: Enemy
+
+    for enemy in enemies {
+        dx := enemy.pos.x - flower.pos.x
+        dy := enemy.pos.y - flower.pos.y
+
+        dist_sq := dx*dx + dy*dy
+
+        if dist_sq <= best_dist_sq {
+            best_dist_sq = dist_sq
+            best_enemy = enemy
+            found = true
+        }
+    }
+
+    return best_enemy, found
+}
+
+update_flowers_targeting :: proc(
+    flowers: ^[dynamic]Flower,
+    enemies: ^[dynamic]Enemy
+) {
+    range: f32 = 250
+
+    for &flower in flowers {
+        enemy, found := get_nearest_enemy_in_range(flower, enemies, range)
+
+        if found {
+            scale: f32 = 5.0
+
+            flower_center := rl.Vector2{
+                flower.pos.x + (f32(flower.texture.width) * scale) / 2,
+                flower.pos.y + (f32(flower.texture.height) * scale) / 2,
+            }
+
+            enemy_center := rl.Vector2{
+                enemy.pos.x + (f32(enemy.texture.width) * scale) / 2,
+                enemy.pos.y + (f32(enemy.texture.height) * scale) / 2,
+            }           
+            dx := enemy_center.x - flower_center.x
+            dy := enemy_center.y - flower_center.y
+
+
+            angle := math.atan2(dy, dx) * 180.0 / math.PI
+            flower.rotation = f32(angle)
+        }
     }
 }
